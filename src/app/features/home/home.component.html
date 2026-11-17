@@ -1,0 +1,218 @@
+<div class="page-shell">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">{{ 'UI.THE_EVERYDAY_EDIT' | translate }}</p>
+      <h1 id="hero-title">
+        {{ 'UI.GOOD_FINDS' | translate }}<br />{{ 'UI.GREAT_EVERYDAY' | translate }}
+      </h1>
+      <p class="hero-description">
+        {{
+          'UI.FROM_WARDROBE_FAVORITES_TO_EVERYDAY_ESSENTIALS_DISCOVER_A_LITTLE_MORE_OF_WHAT_YOU_LOVE_ALL_IN_ONE_PLACE'
+            | translate
+        }}
+      </p>
+      <a href="#featured-title" class="button"
+        >{{ 'UI.EXPLORE_THE_COLLECTION' | translate }}
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+      ></a>
+      <p class="hero-footnote">{{ 'UI.YOUR_NEXT_FAVORITE_IS_WAITING' | translate }}</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="hero-circle"></div>
+      <span class="art-label">{{ 'UI.CURATED_FOR_YOU' | translate }}</span>
+      <div class="shopping-bag">
+        <span class="bag-handle"></span><i class="fa-solid fa-seedling"></i
+        ><span
+          >{{ 'UI.THE_EVERYDAY' | translate }}<br /><b>{{ 'UI.COLLECTION' | translate }}</b></span
+        >
+      </div>
+      <span class="art-stamp"
+        >{{ 'UI.A_LITTLE_SOMETHING' | translate }}<br /><b>{{
+          'UI.YOU_LL_LOVE' | translate
+        }}</b></span
+      >
+    </div>
+  </section>
+  <div class="discovery-strip">
+    <span
+      ><i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+      {{ 'UI.MORE_CHOICE_ONE_PLACE' | translate }}</span
+    ><span
+      ><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      {{ 'UI.FIND_YOUR_PERFECT_FIT' | translate }}</span
+    ><span
+      ><i class="fa-solid fa-star" aria-hidden="true"></i>
+      {{ 'UI.EXPLORE_CUSTOMER_RATINGS' | translate }}</span
+    >
+  </div>
+  <section class="home-section" aria-labelledby="categories-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">{{ 'UI.A_PLACE_TO_START' | translate }}</p>
+        <h2 id="categories-title">{{ 'UI.SHOP_BY_CATEGORY' | translate }}</h2>
+      </div>
+      <a href="/shop" class="text-link"
+        >{{ 'UI.EXPLORE_ALL' | translate }} <span aria-hidden="true">↗</span></a
+      >
+    </div>
+    <div class="category-grid">
+      @for (category of categorylist(); track category._id) {
+        <div class="category-tile">
+          <img [src]="category.image" alt="" loading="lazy" width="80" height="80" /><span>{{
+            category.name
+          }}</span>
+        </div>
+      }
+    </div>
+  </section>
+  <section class="offers-grid home-section" [attr.aria-label]="'UI.SPECIAL_OFFERS' | translate">
+    <article class="offer-card offer-green">
+      <span class="offer-label"
+        ><i class="fa-solid fa-fire" aria-hidden="true"></i>
+        {{ 'UI.DEAL_OF_THE_DAY' | translate }}</span
+      >
+      <h2>{{ 'UI.FRESH_ORGANIC_FRUITS' | translate }}</h2>
+      <p>{{ 'UI.GET_UP_TO_40_OFF_ON_SELECTED_ORGANIC_FRUITS' | translate }}</p>
+      <div class="offer-discount">
+        <strong>{{ 'UI.40_OFF' | translate }}</strong><span
+          >{{ 'UI.USE_CODE' | translate }} <b>ORGANIC40</b></span
+        >
+      </div>
+      <a href="#" class="offer-link"
+        >{{ 'UI.SHOP_NOW' | translate }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+      ></a>
+    </article>
+    <article class="offer-card offer-coral">
+      <span class="offer-label"
+        ><i class="fa-solid fa-hand-sparkles" aria-hidden="true"></i>
+        {{ 'UI.NEW_ARRIVALS' | translate }}</span
+      >
+      <h2>{{ 'UI.EXOTIC_VEGETABLES' | translate }}</h2>
+      <p>{{ 'UI.DISCOVER_OUR_LATEST_COLLECTION_OF_PREMIUM_VEGETABLES' | translate }}</p>
+      <div class="offer-discount">
+        <strong>{{ 'UI.25_OFF' | translate }}</strong><span
+          >{{ 'UI.USE_CODE' | translate }} <b>FRESH25</b></span
+        >
+      </div>
+      <a href="#" class="offer-link"
+        >{{ 'UI.EXPLORE_NOW' | translate }}
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+      ></a>
+    </article>
+  </section>
+  <section class="home-section" aria-labelledby="featured-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">{{ 'UI.FIND_SOMETHING_YOU_LOVE' | translate }}</p>
+        <h2 id="featured-title">{{ 'UI.FEATURED_PRODUCTS' | translate }}</h2>
+        <p>{{ 'UI.A_FRESH_PERSPECTIVE_ON_YOUR_EVERYDAY_ESSENTIALS' | translate }}</p>
+      </div>
+      <a href="/shop" class="text-link"
+        >{{ 'UI.SHOP_ALL_PRODUCTS' | translate }} <span aria-hidden="true">↗</span></a
+      >
+    </div>
+    <div class="product-grid">
+      @for (product of productList(); track product._id) {
+        <app-card [product]="product" />
+      }
+    </div>
+  </section>
+  <section class="newsletter-section home-section" aria-labelledby="newsletter-heading">
+    <div class="newsletter-copy">
+      <div class="newsletter-intro">
+        <span class="newsletter-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+        <div>
+          <p class="eyebrow">{{ 'UI.NEWSLETTER' | translate }}</p>
+          <p>{{ 'UI.50_000_SUBSCRIBERS' | translate }}</p>
+        </div>
+      </div>
+      <h2 id="newsletter-heading">
+        {{ 'UI.GET_THE_FRESHEST_UPDATES' | translate }}
+        <span>{{ 'UI.DELIVERED_FREE' | translate }}</span>
+      </h2>
+      <p class="newsletter-description">
+        {{ 'UI.WEEKLY_RECIPES_SEASONAL_OFFERS_EXCLUSIVE_MEMBER_PERKS' | translate }}
+      </p>
+      <ul class="newsletter-perks">
+        <li>
+          <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+          {{ 'UI.FRESH_PICKS_WEEKLY' | translate }}
+        </li>
+        <li>
+          <i class="fa-solid fa-truck" aria-hidden="true"></i>
+          {{ 'UI.FREE_DELIVERY_CODES' | translate }}
+        </li>
+        <li>
+          <i class="fa-solid fa-tag" aria-hidden="true"></i>
+          {{ 'UI.MEMBERS_ONLY_DEALS' | translate }}
+        </li>
+      </ul>
+      <div class="newsletter-form">
+        <label for="newsletter-email">{{ 'UI.EMAIL_ADDRESS' | translate }}</label>
+        <div>
+          <input
+            id="newsletter-email"
+            name="newsletterEmail"
+            type="email"
+            autocomplete="email"
+            [placeholder]="'UI.YOU_EXAMPLE_COM' | translate"
+            aria-describedby="newsletter-privacy"
+          /><button type="button" class="button">
+            {{ 'UI.SUBSCRIBE' | translate }}
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <p id="newsletter-privacy">
+        <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+        {{ 'UI.UNSUBSCRIBE_ANYTIME_NO_SPAM_EVER' | translate }}
+      </p>
+    </div>
+    <aside class="mobile-app-panel" aria-labelledby="mobile-app-heading">
+      <span class="app-label"
+        ><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
+        {{ 'UI.MOBILE_APP' | translate }}</span
+      >
+      <h3 id="mobile-app-heading">{{ 'UI.SHOP_FASTER_ON_OUR_APP' | translate }}</h3>
+      <p>{{ 'UI.GET_APP_EXCLUSIVE_DEALS_15_OFF_YOUR_FIRST_ORDER' | translate }}</p>
+      <div class="app-downloads">
+        <button type="button" [attr.aria-label]="'UI.DOWNLOAD_ON_APP_STORE' | translate">
+          <i class="fa-brands fa-apple" aria-hidden="true"></i
+          ><span
+            ><small>{{ 'UI.DOWNLOAD_ON' | translate }}</small
+            ><strong>App Store</strong></span
+          ></button
+        ><button type="button" [attr.aria-label]="'UI.GET_IT_ON_GOOGLE_PLAY' | translate">
+          <i class="fa-brands fa-google-play" aria-hidden="true"></i
+          ><span
+            ><small>{{ 'UI.GET_IT_ON' | translate }}</small
+            ><strong>Google Play</strong></span
+          >
+        </button>
+      </div>
+      <div class="app-rating">
+        <span aria-hidden="true"
+          ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+          ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+          ><i class="fa-solid fa-star"></i></span
+        ><span
+          ><span class="sr-only">{{ 'UI.RATED' | translate }} </span>4.9<span class="sr-only">
+            {{ 'UI.OUT_OF_5' | translate }}</span
+          >
+          {{ 'UI.100K_DOWNLOADS' | translate }}</span
+        >
+      </div>
+    </aside>
+  </section>
+  <section class="explore-banner">
+    <div>
+      <p class="eyebrow">{{ 'UI.LESS_SEARCHING_MORE_DISCOVERING' | translate }}</p>
+      <h2>{{ 'UI.MAKE_ROOM_FOR_A_NEW_FAVORITE' | translate }}</h2>
+      <p>{{ 'UI.BROWSE_THE_COLLECTION_AND_FIND_WHAT_FEELS_LIKE_YOU' | translate }}</p>
+    </div>
+    <a href="#featured-title" class="button"
+      >{{ 'UI.FIND_YOUR_NEXT_FAVORITE' | translate }}
+      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+    ></a>
+  </section>
+</div>

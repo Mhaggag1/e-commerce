@@ -1,0 +1,62 @@
+<article class="product-card">
+  <div class="product-actions">
+    <button type="button" [attr.aria-label]="'UI.ADD_TO_WISHLIST' | translate">
+      <i class="fa-regular fa-heart" aria-hidden="true"></i></button
+    ><button type="button" [attr.aria-label]="'UI.COMPARE' | translate">
+      <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i></button
+    ><button
+      [routerLink]="['/product-details', product()._id]"
+      type="button"
+      [attr.aria-label]="'UI.QUICK_VIEW' | translate"
+    >
+      <i class="fa-regular fa-eye" aria-hidden="true"></i>
+    </button>
+  </div>
+  <a
+    [routerLink]="['/product-details', product()._id]"
+    class="product-image"
+    tabindex="-1"
+    aria-hidden="true"
+    ><img [src]="product().imageCover" alt="" loading="lazy" width="300" height="300"
+  /></a>
+  <div class="product-info">
+    <span class="category">{{ product().category.name }}</span>
+    <h3 [title]="product().title">
+      <a [routerLink]="['/product-details', product()._id]">{{ product().title }}</a>
+    </h3>
+    <div class="rating">
+      <span class="rating-stars">
+        @for (star of stars; track star) {
+          <i
+            [class]="
+              product().ratingsAverage >= star
+                ? 'fa-solid fa-star'
+                : product().ratingsAverage >= star - 0.5
+                  ? 'fa-solid fa-star-half-stroke'
+                  : 'fa-regular fa-star'
+            "
+            aria-hidden="true"
+          ></i>
+        }</span
+      ><span
+        >{{ product().ratingsAverage }}
+        <span class="sr-only">{{ 'UI.OUT_OF_5_STARS' | translate }}</span><span class="review-count"
+          >({{ 'UI.REVIEWS' | translate: { count: product().ratingsQuantity } }})</span
+        ></span
+      >
+    </div>
+    <button type="button" class="add-to-cart">
+      <i class="fa-solid fa-plus" aria-hidden="true"></i> {{ 'UI.ADD_TO_CART' | translate }}
+    </button>
+    <div class="product-bottom">
+      <span class="price"
+        >{{ product().price }} <small>{{ 'UI.EGP' | translate }}</small></span
+      ><a
+        [routerLink]="['/product-details', product()._id]"
+        class="view-product"
+        [attr.aria-label]="'UI.VIEW_PRODUCT' | translate: { title: product().title }"
+        ><i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+      ></a>
+    </div>
+  </div>
+</article>

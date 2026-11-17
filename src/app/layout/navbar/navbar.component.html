@@ -1,0 +1,122 @@
+<header>
+  <div class="announcement">
+    <div class="announcement-content">
+      <div>
+        {{ 'UI.FREE_SHIPPING_ON_ORDERS_500_EGP' | translate }}
+        <span>{{ 'UI.NEW_ARRIVALS_DAILY' | translate }}</span>
+      </div>
+      <div class="announcement-contact">
+        <a href="tel:+18001234567">+1 (800) 123-4567</a
+        ><a href="mailto:support@atyourservice.com">support@atyourservice.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="header-inner">
+    <a href="/home" class="brand" [attr.aria-label]="'UI.AT_YOUR_SERVICE_HOME' | translate"
+      ><span class="brand-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span
+      ><span
+        >{{ 'UI.AT_YOUR_SERVICE' | translate
+        }}<small>{{ 'UI.EVERYDAY_FINDS_THOUGHTFULLY_PICKED' | translate }}</small></span
+      ></a
+    >
+    <form role="search" action="/shop" method="get">
+      <label class="sr-only" for="product-search">{{ 'UI.SEARCH_PRODUCTS' | translate }}</label>
+      <input
+        name="search"
+        id="product-search"
+        type="search"
+        [placeholder]="'UI.WHAT_ARE_YOU_LOOKING_FOR' | translate"
+      />
+      <button type="submit" [attr.aria-label]="'UI.SEARCH_PRODUCTS' | translate">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      </button>
+    </form>
+    <a href="/login" class="account"
+      ><i class="fa-regular fa-user" aria-hidden="true"></i
+      ><span>{{ 'UI.SIGN_IN' | translate }}</span></a
+    >
+    <a href="/wishlist" class="header-action" [attr.aria-label]="'UI.WISHLIST' | translate"
+      ><i class="fa-regular fa-heart" aria-hidden="true"></i
+    ></a>
+    <a href="/cart" class="header-action" [attr.aria-label]="'UI.CART' | translate"
+      ><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
+    ></a>
+    <button
+      class="menu-button"
+      data-collapse-toggle="main-navigation"
+      aria-expanded="false"
+      aria-controls="main-navigation"
+      [attr.aria-label]="'UI.TOGGLE_NAVIGATION' | translate"
+    >
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+  </div>
+  <nav id="main-navigation" [attr.aria-label]="'UI.MAIN_NAVIGATION' | translate" class="hidden">
+    <div class="nav-inner">
+      <div class="nav-links">
+        <a href="/home">{{ 'UI.HOME' | translate }}</a>
+        <a href="/shop">{{ 'UI.SHOP_ALL' | translate }}</a>
+        <button
+          id="categories-button"
+          type="button"
+          data-dropdown-toggle="categories-dropdown"
+          data-dropdown-placement="bottom-start"
+          aria-controls="categories-dropdown"
+          aria-expanded="false"
+          class="category-menu-button"
+        >
+          {{ 'UI.CATEGORIES' | translate }}
+          <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div id="categories-dropdown" class="hidden z-50 category-dropdown">
+          <ul aria-labelledby="categories-button">
+            <li>
+              <a href="/categories">{{ 'UI.ALL_CATEGORIES' | translate }}</a>
+            </li>
+            <li>
+              <a href="/shop?category=electronics">{{ 'UI.ELECTRONICS' | translate }}</a>
+            </li>
+            <li>
+              <a href="/shop?category=womens-fashion">{{ 'UI.WOMEN_S_FASHION' | translate }}</a>
+            </li>
+            <li>
+              <a href="/shop?category=mens-fashion">{{ 'UI.MEN_S_FASHION' | translate }}</a>
+            </li>
+            <li>
+              <a href="/shop?category=beauty-health">{{ 'UI.BEAUTY_HEALTH' | translate }}</a>
+            </li>
+          </ul>
+        </div>
+        <a href="/brands">{{ 'UI.BRANDS' | translate }}</a>
+      </div>
+      <div class="nav-utilities">
+        <div role="group" [attr.aria-label]="'UI.LANGUAGE' | translate" class="language-switch">
+          <button
+            type="button"
+            lang="ar"
+            (click)="customTranslate.changeLanguage('ar')"
+            [attr.aria-pressed]="customTranslate.currentLanguage() === 'ar'"
+          >
+            العربية</button
+          ><button
+            type="button"
+            lang="en"
+            (click)="customTranslate.changeLanguage('en')"
+            [attr.aria-pressed]="customTranslate.currentLanguage() === 'en'"
+          >
+            English
+          </button>
+        </div>
+        <a href="mailto:support@atyourservice.com" class="support-link"
+          ><small>{{ 'UI.NEED_HELP' | translate }}</small
+          >{{ 'UI.CONTACT_SUPPORT' | translate }}</a
+        ><a href="/login" class="text-link">{{ 'UI.SIGN_IN' | translate }}</a
+        ><a href="/register" class="button">{{ 'UI.SIGN_UP' | translate }}</a>
+      </div>
+      <span class="nav-note"
+        ><i class="fa-solid fa-compass" aria-hidden="true"></i>
+        {{ 'UI.SOMETHING_FOR_EVERY_DAY' | translate }}</span
+      >
+    </div>
+  </nav>
+</header>

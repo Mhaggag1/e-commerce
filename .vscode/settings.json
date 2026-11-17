@@ -1,0 +1,4 @@
+{
+  "js/ts.experimental.useTsgo": false,
+  "i18n-ally.localesPaths": ["public/assets/i18n"]
+}
