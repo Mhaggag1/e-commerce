@@ -6,9 +6,10 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { register } from 'swiper/element/bundle';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomtranslationService } from './core/services/customtranslation/customtranslation.service';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  imports: [TranslatePipe, RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [TranslatePipe, RouterOutlet, NavbarComponent, FooterComponent, NgxSpinnerComponent],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

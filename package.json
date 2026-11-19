@@ -25,6 +25,7 @@
     "@ngx-translate/http-loader": "^18.1.0",
     "express": "^5.1.0",
     "flowbite": "^4.0.2",
+    "ngx-spinner": "^22.0.1",
     "rxjs": "~7.8.0",
     "swiper": "^14.4.0",
     "tslib": "^2.3.0"

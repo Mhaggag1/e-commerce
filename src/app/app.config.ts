@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
 import {
   provideRouter,
   withHashLocation,
@@ -7,10 +11,12 @@ import {
 } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { provideTranslateService, TranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { loadingInterceptor } from './core/interceptors/loading/loading.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -20,7 +26,8 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
     ),
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    importProvidersFrom(NgxSpinnerModule),
+    provideHttpClient(withFetch(), withInterceptors([loadingInterceptor])),
     provideTranslateService({
       lang: 'en',
       fallbackLang: 'en',
