@@ -1,0 +1,51 @@
+<section class="mx-auto max-w-4xl space-y-4 p-4">
+  <h2 class="text-xl font-semibold">Customer reviews</h2>
+  @if (productId()) {
+    <a routerLink="/reviews" class="underline text-primary">All store reviews</a>
+  }
+  @for (item of reviews(); track item._id) {
+    <article class="rounded-lg border p-3">
+      <strong>{{ item.user?.name || 'Customer' }}</strong> · {{ item.rating }} / 5
+      <p>{{ item.review }}</p>
+      @if (userId() && item.user?._id === userId()) {
+        <button class="me-4 underline" (click)="editReview(item._id)" [disabled]="busy()">
+          Edit</button
+        ><button class="text-danger" (click)="deleteReview(item._id)" [disabled]="busy()">
+          Delete
+        </button>
+      }
+    </article>
+  }
+  @if (pages > 1) {
+    <nav class="flex gap-3">
+      <button [disabled]="busy() || page <= 1" (click)="getReviews(page - 1)">Previous</button
+      ><span>{{ page }} / {{ pages }}</span
+      ><button [disabled]="busy() || page >= pages" (click)="getReviews(page + 1)">Next</button>
+    </nav>
+  }
+  @if (userId() && (productId() || editId())) {
+    <form [formGroup]="form" (ngSubmit)="saveReview()" class="grid gap-3">
+      <label
+        >Rating (1–5)<input
+          class="block rounded border p-2"
+          type="number"
+          min="1"
+          max="5"
+          formControlName="rating" /></label
+      ><label
+        >Review<textarea
+          class="block w-full rounded border p-2"
+          formControlName="review"
+        ></textarea></label
+      ><button class="button" [disabled]="form.invalid || busy()">
+        {{ editId() ? 'Update review' : 'Post review' }}
+      </button>
+      @if (editId()) {
+        <button type="button" (click)="cancelEdit()">Cancel edit</button>
+      }
+    </form>
+  } @else if (productId() && !userId()) {
+    <a routerLink="/login" class="text-primary underline">Sign in to review this product</a>
+  }
+  <p role="status">{{ message() }}</p>
+</section>

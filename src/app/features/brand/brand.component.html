@@ -1,1 +1,30 @@
-<p>brand works!</p>
+<section class="page-shell space-y-5">
+  <h1 class="text-3xl font-bold">Brands</h1>
+  <p role="status">{{ message() }}</p>
+  @if (selected(); as brand) {
+    <div class="flex flex-wrap items-center gap-4">
+      <h2 class="text-xl font-semibold">{{ brand.name }}</h2>
+      <a class="button" routerLink="/shop" [queryParams]="{ brand: brand._id }">Shop this brand</a>
+    </div>
+  }
+  <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    @for (brand of brands(); track brand._id) {
+      <button
+        class="rounded-xl border bg-white p-4"
+        [disabled]="busy()"
+        (click)="getBrand(brand._id)"
+      >
+        <img [src]="brand.image" alt="" loading="lazy" class="mx-auto h-20 object-contain" />{{
+          brand.name
+        }}
+      </button>
+    }
+  </div>
+  @if (pages > 1) {
+    <nav class="flex gap-4">
+      <button [disabled]="busy() || page <= 1" (click)="getBrands(page - 1)">Previous</button
+      ><span>{{ page }} / {{ pages }}</span
+      ><button [disabled]="busy() || page >= pages" (click)="getBrands(page + 1)">Next</button>
+    </nav>
+  }
+</section>

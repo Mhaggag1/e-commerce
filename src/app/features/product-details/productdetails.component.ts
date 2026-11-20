@@ -1,4 +1,5 @@
 import { TranslatePipe } from '@ngx-translate/core';
+import { ReviewsComponent } from '../reviews/reviews.component';
 import { DecimalPipe } from '@angular/common';
 import { CardComponent } from '../home/components/card/card.component';
 import {
@@ -21,7 +22,7 @@ import { CartService } from '../../core/services/cart/cart.service';
 import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 
 @Component({
-  imports: [TranslatePipe, RouterLink, DecimalPipe, CardComponent],
+  imports: [TranslatePipe, RouterLink, DecimalPipe, CardComponent, ReviewsComponent],
   selector: 'app-productdetails',
   styleUrl: './productdetails.component.css',
   templateUrl: './productdetails.component.html',

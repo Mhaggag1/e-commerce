@@ -1,0 +1,48 @@
+<section class="page-shell space-y-5">
+  <h1 class="text-3xl font-bold">My account</h1>
+  <nav class="flex gap-4 text-primary underline">
+    <a routerLink="/change-password">Change password</a><a routerLink="/orders">My orders</a>
+  </nav>
+  <form [formGroup]="profile" (ngSubmit)="saveProfile()" class="grid max-w-lg gap-4">
+    <label class="grid gap-1"
+      >Name<input class="rounded-lg border p-2" type="text" formControlName="name" /></label
+    ><label class="grid gap-1"
+      >Email<input class="rounded-lg border p-2" type="email" formControlName="email" /></label
+    ><label class="grid gap-1"
+      >Phone<input class="rounded-lg border p-2" type="tel" formControlName="phone" /></label
+    ><button class="button" [disabled]="profile.invalid || busy()">Save profile</button>
+  </form>
+  <h2 class="text-xl font-bold">Saved addresses</h2>
+  @for (item of addresses(); track item._id) {
+    <article class="rounded-xl border bg-white p-4">
+      <strong>{{ item.name }}</strong>
+      <p>{{ item.details }}, {{ item.city }} · {{ item.phone }}</p>
+      <button
+        type="button"
+        class="text-danger underline"
+        [disabled]="busy()"
+        (click)="removeAddress(item._id)"
+      >
+        Remove address
+      </button>
+    </article>
+  }
+  <form [formGroup]="address" (ngSubmit)="saveAddress()" class="grid max-w-lg gap-4">
+    <label class="grid gap-1"
+      >Address name<input class="rounded-lg border p-2" type="text" formControlName="name" /></label
+    ><label class="grid gap-1"
+      >Street address<input
+        class="rounded-lg border p-2"
+        type="text"
+        formControlName="details" /></label
+    ><label class="grid gap-1"
+      >City<input class="rounded-lg border p-2" type="text" formControlName="city" /></label
+    ><label class="grid gap-1"
+      >Delivery phone<input
+        class="rounded-lg border p-2"
+        type="tel"
+        formControlName="phone" /></label
+    ><button class="button" [disabled]="address.invalid || busy()">Add address</button>
+  </form>
+  <p role="status">{{ message() }}</p>
+</section>

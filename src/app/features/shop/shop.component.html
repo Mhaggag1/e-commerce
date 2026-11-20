@@ -1,7 +1,7 @@
 <div class="page-shell">
   <p class="breadcrumb">
-    <a href="/home">{{ 'UI.HOME' | translate }}</a
-    ><span aria-hidden="true">/</span>{{ 'UI.SHOP' | translate }}
+    <a href="/home">{{ 'UI.HOME' | translate }}</a><span aria-hidden="true">/</span
+    >{{ 'UI.SHOP' | translate }}
   </p>
   <div class="shop-heading">
     <p class="eyebrow">{{ 'UI.THE_COLLECTION' | translate }}</p>
@@ -12,6 +12,29 @@
       }}
     </p>
   </div>
+  <section class="my-8" aria-label="Products">
+    <p role="status">{{ message() }}</p>
+    <div class="product-grid">
+      @for (product of products(); track product._id) {
+        <app-card [product]="product" />
+      }
+    </div>
+    @if (pages > 1) {
+      <nav class="mt-6 flex gap-4">
+        @if (page > 1) {
+          <a routerLink="/shop" queryParamsHandling="merge" [queryParams]="{ page: page - 1 }"
+            >Previous</a
+          >
+        }
+        <span>{{ page }} / {{ pages }}</span>
+        @if (page < pages) {
+          <a routerLink="/shop" queryParamsHandling="merge" [queryParams]="{ page: page + 1 }"
+            >Next</a
+          >
+        }
+      </nav>
+    }
+  </section>
   <section class="collection-intro" aria-labelledby="collection-title">
     <span class="collection-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
     <p class="eyebrow">{{ 'UI.THOUGHTFULLY_PICKED' | translate }}</p>

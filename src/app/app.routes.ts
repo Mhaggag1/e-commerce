@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { signedInGuard } from './core/auth/signed-in.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   },
   {
     path: 'change-password',
+    canActivate: [signedInGuard],
     loadComponent: () =>
       import('./features/change-password/change-password.component').then(
         (m) => m.ChangePasswordComponent,
@@ -33,6 +35,7 @@ export const routes: Routes = [
   },
   {
     path: 'check-out',
+    canActivate: [signedInGuard],
     loadComponent: () =>
       import('./features/check-out/check-out.component').then((m) => m.CheckOutComponent),
     title: 'At Your Service - check-out',
@@ -51,7 +54,15 @@ export const routes: Routes = [
     title: 'At Your Service - LogIn',
   },
   {
+    path: 'account',
+    canActivate: [signedInGuard],
+    loadComponent: () =>
+      import('./features/account/account.component').then((m) => m.AccountComponent),
+  },
+  { path: 'allorders', redirectTo: 'orders', pathMatch: 'full' },
+  {
     path: 'orders',
+    canActivate: [signedInGuard],
     loadComponent: () =>
       import('./features/orders/orders.component').then((m) => m.OrdersComponent),
     title: 'At Your Service - Orders',
@@ -64,6 +75,11 @@ export const routes: Routes = [
         (m) => m.ProductdetailsComponent,
       ),
     title: 'At Your Service - Details',
+  },
+  {
+    path: 'reviews',
+    loadComponent: () =>
+      import('./features/reviews/reviews.component').then((m) => m.ReviewsComponent),
   },
   {
     path: 'register',

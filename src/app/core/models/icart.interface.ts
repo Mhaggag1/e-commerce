@@ -6,6 +6,7 @@ export interface Icart {
   updatedAt: string;
   __v: number;
   totalCartPrice: number;
+  totalPriceAfterDiscount?: number;
 }
 
 interface Product2 {

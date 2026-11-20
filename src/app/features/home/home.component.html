@@ -57,11 +57,11 @@
     </div>
     <div class="category-grid">
       @for (category of categorylist(); track category._id) {
-        <div class="category-tile">
+        <a class="category-tile" [href]="'/shop?category=' + category._id">
           <img [src]="category.image" alt="" loading="lazy" width="80" height="80" /><span>{{
             category.name
           }}</span>
-        </div>
+        </a>
       }
     </div>
   </section>

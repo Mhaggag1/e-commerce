@@ -1,1 +1,18 @@
-<p>orders works!</p>
+<section class="page-shell space-y-5">
+  <h1 class="text-3xl font-bold">My orders</h1>
+  <p role="status">{{ message() }}</p>
+  @for (order of orders(); track order._id) {
+    <article class="rounded-xl border bg-white p-5">
+      <h2 class="font-bold">Order #{{ order.id || order._id }}</h2>
+      <p>
+        {{ order.totalOrderPrice }} EGP · {{ order.paymentMethodType }} ·
+        {{ order.isDelivered ? 'Delivered' : 'Processing' }}
+      </p>
+      <ul>
+        @for (item of order.cartItems; track item._id) {
+          <li>{{ item.product?.title || 'Product' }} × {{ item.count }}</li>
+        }
+      </ul>
+    </article>
+  }
+</section>

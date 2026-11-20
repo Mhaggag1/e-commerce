@@ -1,9 +1,12 @@
+import { TranslatePipe } from '@ngx-translate/core';
+import { model } from '@angular/core';
 import { Component } from '@angular/core';
-
 @Component({
-  imports: [],
+  imports: [TranslatePipe],
   selector: 'app-payment',
-  styleUrl: './payment.component.css',
   templateUrl: './payment.component.html',
+  styleUrl: './payment.component.css',
 })
-export class PaymentComponent {}
+export class PaymentComponent {
+  readonly method = model<'cash' | 'card'>('cash');
+}

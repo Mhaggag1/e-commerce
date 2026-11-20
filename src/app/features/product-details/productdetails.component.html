@@ -364,11 +364,9 @@
                   {{ 'UI.BASED_ON_REVIEWS' | translate: { count: product.ratingsQuantity } }}
                 </p>
               </div>
-              <div
-                class="flex items-center justify-center rounded-xl border border-gray-100 p-8 text-center text-sm text-gray-500"
-              >
-                {{ 'UI.INDIVIDUAL_REVIEWS_AND_RATING_BREAKDOWN_ARE_NOT_AVAILABLE_YET' | translate }}
-              </div>
+              @for (id of [product._id]; track id) {
+                <app-reviews [productId]="id" />
+              }
             </div>
           </div>
           <div id="shipping-panel" class="hidden" role="tabpanel" aria-labelledby="shipping-tab">

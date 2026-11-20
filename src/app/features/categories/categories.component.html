@@ -1,0 +1,56 @@
+<section class="page-shell space-y-5">
+  <h1 class="text-3xl font-bold">Categories</h1>
+  <p role="status">{{ message() }}</p>
+  <div class="flex flex-wrap gap-3">
+    <button class="text-primary underline" [disabled]="busy()" (click)="getSubcategories()">
+      All subcategories
+    </button>
+    @for (category of categories(); track category._id) {
+      <button
+        class="rounded-lg border bg-white p-3"
+        [disabled]="busy()"
+        (click)="getSubcategories(category._id)"
+      >
+        {{ category.name }}
+      </button>
+    }
+  </div>
+  @if (selected(); as category) {
+    <a routerLink="/shop" [queryParams]="{ category: category._id }" class="button"
+      >Shop {{ category.name }}</a
+    >
+  }
+  <h2 class="text-xl font-semibold">Subcategories</h2>
+  <div class="flex flex-wrap gap-3">
+    @for (item of subcategories(); track item._id) {
+      <button
+        class="text-primary underline"
+        [disabled]="busy()"
+        (click)="showSubcategory(item._id)"
+      >
+        {{ item.name }}
+      </button>
+    }
+  </div>
+  @if (subcategory(); as item) {
+    <a routerLink="/shop" [queryParams]="{ subcategory: item._id }" class="button"
+      >Shop {{ item.name }}</a
+    >
+  }
+  @if (pages > 1) {
+    <nav class="flex gap-4">
+      <button
+        [disabled]="busy() || page <= 1"
+        (click)="getSubcategories(selected()?._id, page - 1)"
+      >
+        Previous</button
+      ><span>{{ page }} / {{ pages }}</span
+      ><button
+        [disabled]="busy() || page >= pages"
+        (click)="getSubcategories(selected()?._id, page + 1)"
+      >
+        Next
+      </button>
+    </nav>
+  }
+</section>

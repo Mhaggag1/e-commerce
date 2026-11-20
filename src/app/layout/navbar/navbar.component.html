@@ -55,6 +55,9 @@
             <p dir="auto" class="wrap-anywhere text-sm font-normal text-gray-600">
               {{ loggedUser.email }}
             </p>
+            <a href="/account" class="block py-2 text-primary underline">{{
+              'UI.MY_ACCOUNT' | translate
+            }}</a>
           }
           <button
             type="button"
@@ -71,12 +74,34 @@
         ><span>{{ 'UI.SIGN_IN' | translate }}</span></a
       >
     }
-    <a href="/wishlist" class="header-action" [attr.aria-label]="'UI.WISHLIST' | translate"
-      ><i class="fa-regular fa-heart" aria-hidden="true"></i
-    ></a>
-    <a href="/cart" class="header-action" [attr.aria-label]="'UI.CART' | translate"
-      ><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
-    ></a>
+    <a
+      href="/wishlist"
+      class="header-action relative"
+      [attr.aria-label]="
+        isLoggedIn() && wishlistCount() !== null
+          ? ('UI.WISHLIST_COUNT' | translate: { count: wishlistCount() })
+          : ('UI.WISHLIST' | translate)
+      "
+    >
+      <i class="fa-regular fa-heart" aria-hidden="true"></i>
+      @if (isLoggedIn() && wishlistCount() !== null) {
+        <span class="item-count" aria-hidden="true">{{ wishlistCount() }}</span>
+      }
+    </a>
+    <a
+      href="/cart"
+      class="header-action relative"
+      [attr.aria-label]="
+        isLoggedIn() && cartCount() !== null
+          ? ('UI.CART_COUNT' | translate: { count: cartCount() })
+          : ('UI.CART' | translate)
+      "
+    >
+      <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+      @if (isLoggedIn() && cartCount() !== null) {
+        <span class="item-count" aria-hidden="true">{{ cartCount() }}</span>
+      }
+    </a>
     <button
       class="menu-button"
       data-collapse-toggle="main-navigation"

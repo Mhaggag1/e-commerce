@@ -165,18 +165,29 @@
             <div class="flex justify-between items-end border-t border-gray-100 pt-5 mb-6">
               <span class="font-bold text-gray-900 text-lg">{{ 'UI.TOTAL' | translate }}</span>
               <span class="font-black text-3xl text-gray-900">
-                {{ cartData()?.totalCartPrice ?? 0 }}
+                {{ cartData()?.totalPriceAfterDiscount ?? cartData()?.totalCartPrice ?? 0 }}
                 <span class="text-sm font-semibold text-gray-500">{{ 'UI.EGP' | translate }}</span>
               </span>
             </div>
 
-            <!-- <button
-              class="w-full py-3.5 mb-3 border-2 border-dashed border-gray-200 text-gray-600 font-bold rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 focus:outline-hidden"
-            >
-              <i class="fa-solid fa-tag"></i> Apply Promo Code
-            </button> -->
-
+            <label class="block mb-3"
+              >{{ 'UI.COUPON_CODE' | translate }}
+              <input #coupon class="rounded-lg border px-3 py-2 w-full" />
+            </label>
             <button
+              type="button"
+              (click)="applyCoupon(coupon.value)"
+              [disabled]="applyingCoupon() || !cartData()?.products.length"
+              class="text-primary mb-3"
+            >
+              {{ 'UI.APPLY_COUPON' | translate }}
+            </button>
+            @if (couponMessage()) {
+              <p role="status">{{ couponMessage() | translate }}</p>
+            }
+            <button
+              routerLink="/check-out"
+              [disabled]="!cartData()?.products.length"
               class="w-full py-4 bg-[#138D46] text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2 focus:outline-hidden hover:-translate-y-0.5 transform duration-200"
             >
               <i class="fa-solid fa-lock" aria-hidden="true"></i>

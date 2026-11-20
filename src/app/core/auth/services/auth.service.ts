@@ -7,6 +7,22 @@ import { environment } from '../../../../environments/environment';
 export class AuthService {
   private readonly httpClient = inject(HttpClient);
 
+  verifyToken(): Observable<any> {
+    return this.httpClient.get<any>(`${environment.baseUrl}/api/v1/auth/verifyToken`);
+  }
+
+  changePassword(data: {
+    currentPassword: string;
+    password: string;
+    rePassword: string;
+  }): Observable<any> {
+    return this.httpClient.put<any>(`${environment.baseUrl}/api/v1/users/changeMyPassword`, data);
+  }
+
+  updateUser(data: { name: string; email: string; phone: string }): Observable<any> {
+    return this.httpClient.put<any>(`${environment.baseUrl}/api/v1/users/updateMe/`, data);
+  }
+
   signUp(data: any): Observable<any> {
     return this.httpClient.post(`${environment.baseUrl}/api/v1/auth/signup`, data);
   }

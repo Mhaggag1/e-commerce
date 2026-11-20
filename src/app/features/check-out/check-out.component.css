@@ -1,0 +1,28 @@
+.checkout-panel {
+  border: 1px solid #dce5de;
+  border-radius: 1rem;
+  background: white;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  min-width: 0;
+}
+.checkout-field {
+  display: grid;
+  gap: 0.375rem;
+  min-width: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.checkout-field input,
+.checkout-field select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #aabbb0;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.8rem;
+  background: white;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.checkout-field input:user-invalid {
+  border-color: var(--color-danger);
+}
