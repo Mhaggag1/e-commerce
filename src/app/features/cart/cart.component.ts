@@ -59,7 +59,7 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart().subscribe({
       next: (res) => {
         console.log(res);
-        this.cartData.set(res.data);
+        this.cartData.set({} as Icart);
       },
       error: (err) => {
         console.log(err);
