@@ -13,7 +13,6 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { provideToastr } from 'ngx-toastr';
 
 import { provideTranslateService, TranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -21,7 +20,6 @@ import { loadingInterceptor } from './core/interceptors/loading/loading.intercep
 import { headerInterceptor } from './core/interceptors/loading/header/header.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideToastr(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(
       routes,
