@@ -45,7 +45,7 @@
         ></span
       >
     </div>
-    <button type="button" class="add-to-cart">
+    <button (click)="addProductToCart(product()._id)" type="button" class="add-to-cart">
       <i class="fa-solid fa-plus" aria-hidden="true"></i> {{ 'UI.ADD_TO_CART' | translate }}
     </button>
     <div class="product-bottom">

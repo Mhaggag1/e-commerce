@@ -17,6 +17,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, of, switchMap } from 'rxjs';
 import { ProductsService } from '../../core/services/product/products.service';
 import { Product } from '../../core/models/iproduct/product.interface';
+import { CartService } from '../../core/services/cart/cart.service';
 
 @Component({
   imports: [TranslatePipe, RouterLink, DecimalPipe, CardComponent],
@@ -161,5 +162,18 @@ export class ProductdetailsComponent implements OnInit {
         }
         this.loading.set(false);
       });
+  }
+
+  private readonly cartService = inject(CartService);
+
+  addProductToCart(productId: string): void {
+    this.cartService.addProductToCart(productId).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

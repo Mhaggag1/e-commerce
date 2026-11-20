@@ -13,4 +13,16 @@ export class AuthService {
   signIn(data: any): Observable<any> {
     return this.httpClient.post(`${environment.baseUrl}/api/v1/auth/signin`, data);
   }
+
+  forgetPassword(data: any): Observable<any> {
+    return this.httpClient.post(`${environment.baseUrl}/api/v1/auth/forgotPasswords`, data);
+  }
+
+  verifyCode(data: any): Observable<any> {
+    return this.httpClient.post(`${environment.baseUrl}/api/v1/auth/verifyResetCode`, data);
+  }
+
+  resetPassword(data: any): Observable<any> {
+    return this.httpClient.put(`${environment.baseUrl}/api/v1/auth/resetPassword`, data);
+  }
 }
