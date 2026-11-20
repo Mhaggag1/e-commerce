@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'flowbite/src/themes/default';
+@import 'ngx-toastr/toastr';
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 @theme {
