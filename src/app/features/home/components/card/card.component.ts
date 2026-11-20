@@ -3,7 +3,7 @@ import { Component, inject, input, InputSignal } from '@angular/core';
 import { Product } from '../../../../core/models/iproduct/product.interface';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../../core/services/cart/cart.service';
-import { ToastrService } from 'ngx-toastr';
+import { NgxMatToastService } from 'ngx-mat-toast';
 
 @Component({
   imports: [TranslatePipe, RouterLink],
@@ -15,7 +15,7 @@ export class CardComponent {
   product: InputSignal<Product> = input.required<Product>();
   readonly stars = [1, 2, 3, 4, 5];
   private readonly cartService = inject(CartService);
-  private readonly toastr = inject(ToastrService);
+  private readonly toastr = inject(NgxMatToastService);
 
   addProductToCart(productId: string): void {
     this.cartService.addProductToCart(productId).subscribe({
