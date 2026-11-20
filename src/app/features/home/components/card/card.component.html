@@ -1,7 +1,15 @@
 <article class="product-card">
   <div class="product-actions">
-    <button type="button" [attr.aria-label]="'UI.ADD_TO_WISHLIST' | translate">
-      <i class="fa-regular fa-heart" aria-hidden="true"></i></button
+    <button
+      (click)="addProductToWishlist(product()._id)"
+      type="button"
+      [disabled]="savedProductId() === product()._id"
+      [attr.aria-label]="'UI.ADD_TO_WISHLIST' | translate"
+    >
+      <i
+        [class]="savedProductId() === product()._id ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"
+        aria-hidden="true"
+      ></i></button
     ><button type="button" [attr.aria-label]="'UI.COMPARE' | translate">
       <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i></button
     ><button

@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { CartService } from '../../core/services/cart/cart.service';
 import { Icart } from '../../core/models/icart.interface';
 
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   selector: 'app-cart',
   styleUrl: './cart.component.css',
   templateUrl: './cart.component.html',
@@ -12,7 +13,7 @@ import { Icart } from '../../core/models/icart.interface';
 export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService);
 
-  cartData: WritableSignal<Icart> = signal({} as Icart);
+  cartData: WritableSignal<Icart | null> = signal(null);
 
   ngOnInit(): void {
     this.getLoggedUserCart();
@@ -59,7 +60,7 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart().subscribe({
       next: (res) => {
         console.log(res);
-        this.cartData.set({} as Icart);
+        this.cartData.set(null);
       },
       error: (err) => {
         console.log(err);

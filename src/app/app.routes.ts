@@ -76,4 +76,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/shop/shop.component').then((m) => m.ShopComponent),
     title: 'At Your Service - shop',
   },
+  {
+    path: 'wishlist',
+    loadComponent: () =>
+      import('./features/wishlist/wishlist.component').then((m) => m.WishlistComponent),
+    title: 'At Your Service - Wishlist',
+  },
 ];

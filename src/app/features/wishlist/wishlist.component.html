@@ -1,1 +1,113 @@
-<p>wishlist works!</p>
+<section
+  aria-labelledby="wishlist-heading"
+  class="mx-auto max-w-7xl px-4 pt-6 pb-10 sm:px-6 sm:pt-9 sm:pb-16"
+>
+  <div class="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+    <h1 id="wishlist-heading" class="text-2xl font-bold tracking-tight text-secondary sm:text-3xl">
+      {{ 'UI.MY_WISHLIST' | translate }}
+    </h1>
+    <a
+      routerLink="/shop"
+      class="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:underline"
+    >
+      {{ 'UI.BROWSE_PRODUCTS' | translate }}
+      <i class="fa-solid fa-arrow-right rtl:rotate-180" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  @if (status() === 'loading') {
+    <p role="status" class="text-sm text-[#63736b]">{{ 'UI.LOADING_WISHLIST' | translate }}</p>
+  } @else if (status() === 'signed-out') {
+    <p class="text-sm text-[#63736b]">
+      <a routerLink="/login" class="font-semibold text-primary underline">
+        {{ 'UI.SIGN_IN_TO_VIEW_WISHLIST' | translate }}
+      </a>
+    </p>
+  } @else if (status() === 'error') {
+    <p role="alert" class="text-sm text-danger">{{ 'UI.LOAD_WISHLIST_ERROR' | translate }}</p>
+    <button
+      type="button"
+      (click)="getLoggedUserWishlist()"
+      class="min-h-11 text-sm font-semibold text-primary underline"
+    >
+      {{ 'UI.TRY_AGAIN' | translate }}
+    </button>
+  } @else {
+    @if (removeError()) {
+      <p role="alert" class="mb-4 text-sm text-danger">
+        {{ 'UI.REMOVE_WISHLIST_ITEM_ERROR' | translate }}
+      </p>
+    }
+    <p role="status" class="text-sm text-secondary not-empty:mb-4">
+      {{ cartMessage() ? (cartMessage() | translate) : '' }}
+    </p>
+
+    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+      @for (product of wishlistData(); track product._id) {
+        <li>
+          <article class="h-full overflow-hidden rounded-[14px] border border-[#e2e8e1] bg-white">
+            <div class="relative border-b border-[#f0f2ef] p-5">
+              <img
+                [src]="product.imageCover"
+                alt=""
+                width="300"
+                height="300"
+                loading="lazy"
+                class="h-44 w-full object-contain sm:h-52"
+              />
+              <button
+                type="button"
+                (click)="removeItem(product._id)"
+                [disabled]="!!removingProductId()"
+                [attr.aria-label]="'UI.REMOVE_FROM_WISHLIST' | translate: { title: product.title }"
+                class="absolute inset-e-3 top-3 grid size-11 place-items-center rounded-full bg-red-50 text-danger hover:bg-red-100"
+              >
+                <i class="fa-regular fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="p-4 sm:p-4.5">
+              <p class="text-xs text-[#63736b]">{{ product.category.name }}</p>
+              <h2 class="mt-1 text-sm font-semibold text-secondary">
+                <a [routerLink]="['/product-details', product._id]" class="hover:underline">{{
+                  product.title
+                }}</a>
+              </h2>
+              <p class="mt-3 flex items-center gap-1.5 text-xs text-[#43584c]">
+                <i class="fa-solid fa-star text-[#a66c08]" aria-hidden="true"></i>
+                {{ product.ratingsAverage }}
+                <span class="sr-only">{{ 'UI.OUT_OF_5_STARS' | translate }}</span>
+              </p>
+              <p class="mt-4 text-lg font-bold text-secondary">
+                {{ product.price }}
+                <span class="text-xs font-medium">{{ 'UI.EGP' | translate }}</span>
+              </p>
+              <button
+                type="button"
+                (click)="addProductToCart(product._id)"
+                [disabled]="!!addingProductId()"
+                class="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-white hover:bg-secondary"
+              >
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                {{
+                  (addingProductId() === product._id ? 'UI.ADDING_TO_CART' : 'UI.ADD_TO_CART')
+                    | translate
+                }}
+              </button>
+            </div>
+          </article>
+        </li>
+      } @empty {
+        <li
+          class="col-span-full rounded-[14px] border border-[#e2e8e1] bg-white px-6 py-12 text-center"
+        >
+          <h2 class="text-xl font-semibold text-secondary">
+            {{ 'UI.WISHLIST_EMPTY' | translate }}
+          </h2>
+          <p class="mt-2 text-sm text-[#63736b]">
+            {{ 'UI.WISHLIST_EMPTY_DESCRIPTION' | translate }}
+          </p>
+        </li>
+      }
+    </ul>
+  }
+</section>

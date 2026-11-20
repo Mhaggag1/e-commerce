@@ -151,7 +151,6 @@
             >{{ totalPrice() | number: '1.2-2' }} {{ 'UI.EGP' | translate }}</strong
           >
         </div>
-        <!-- Purchase and wishlist services will be connected separately. -->
         <div class="mt-5 grid gap-3 sm:grid-cols-2">
           <button
             (click)="addProductToCart(product._id)"
@@ -172,10 +171,17 @@
         </div>
         <div class="mt-4 flex gap-3">
           <button
+            (click)="addProductToWishlist(product._id)"
             type="button"
+            [disabled]="savedProductId() === product._id"
             class="min-h-12 flex-1 rounded-xl border border-gray-200 px-4 py-3 font-medium text-gray-700 hover:bg-gray-50"
           >
-            <i class="far fa-heart mr-2" aria-hidden="true"></i
+            <i
+              class="fa-heart mr-2"
+              [class.fa-solid]="savedProductId() === product._id"
+              [class.fa-regular]="savedProductId() !== product._id"
+              aria-hidden="true"
+            ></i
             >{{ 'UI.ADD_TO_WISHLIST' | translate }}
           </button>
           <button

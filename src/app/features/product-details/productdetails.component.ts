@@ -18,6 +18,7 @@ import { catchError, of, switchMap } from 'rxjs';
 import { ProductsService } from '../../core/services/product/products.service';
 import { Product } from '../../core/models/iproduct/product.interface';
 import { CartService } from '../../core/services/cart/cart.service';
+import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 
 @Component({
   imports: [TranslatePipe, RouterLink, DecimalPipe, CardComponent],
@@ -62,6 +63,7 @@ export class ProductdetailsComponent implements OnInit {
   readonly selectedImage = signal('');
   readonly quantity = signal(1);
   readonly shareMessage = signal('');
+  readonly savedProductId = signal('');
   readonly catalog = signal<Product[]>([]);
   readonly gallery = computed(() => {
     const product = this.productdetails();
@@ -165,6 +167,18 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   private readonly cartService = inject(CartService);
+  private readonly wishlistService = inject(WishlistService);
+
+  addProductToWishlist(productId: string): void {
+    this.wishlistService.addProductToWishlist(productId).subscribe({
+      next: () => {
+        this.savedProductId.set(productId);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   addProductToCart(productId: string): void {
     this.cartService.addProductToCart(productId).subscribe({
