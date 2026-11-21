@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/account", "destination": "/index.csr.html" }
+    { "source": "/account", "destination": "/index.csr.html" },
+    { "source": "/shop", "destination": "/index.csr.html" },
+    { "source": "/brands", "destination": "/index.csr.html" },
+    { "source": "/categories", "destination": "/index.csr.html" }
   ]
 }
