@@ -42,7 +42,7 @@
           class="flex min-h-11 cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden"
         >
           <i class="fa-regular fa-user" aria-hidden="true"></i>
-          <span routerLink="/account">{{ 'UI.MY_ACCOUNT' | translate }}</span>
+          <span>{{ 'UI.MY_ACCOUNT' | translate }}</span>
           <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
         </summary>
         <div
@@ -55,10 +55,12 @@
             <p dir="auto" class="wrap-anywhere text-sm font-normal text-gray-600">
               {{ loggedUser.email }}
             </p>
-            <a href="/account" class="block py-2 text-primary underline">{{
-              'UI.MY_ACCOUNT' | translate
-            }}</a>
           }
+          <a
+            routerLink="/account"
+            (click)="accountMenu.open = false"
+            class="block py-2 text-primary underline"
+          >{{ 'UI.MY_ACCOUNT' | translate }}</a>
           <button
             type="button"
             class="mt-2 min-h-11 text-primary hover:underline"

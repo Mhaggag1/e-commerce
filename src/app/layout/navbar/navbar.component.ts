@@ -7,12 +7,12 @@ import { NgxMatToastService } from 'ngx-mat-toast';
 import { CartService } from '../../core/services/cart/cart.service';
 import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 import { BACKGROUND_REQUEST } from '../../core/interceptors/error/error.interceptor';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { signedInGuard } from '../../core/auth/signed-in.guard';
 import { FlowbiteService } from '../../core/services/custom-flowbit/custom-flowbite.service';
 
 @Component({
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, RouterLink],
   selector: 'app-navbar',
   host: { class: 'sticky top-0 z-50 block', '(window:storage)': 'checkLogin()' },
   styleUrl: './navbar.component.css',
