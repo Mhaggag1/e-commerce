@@ -1,48 +1,180 @@
-<section class="page-shell space-y-5">
-  <h1 class="text-3xl font-bold">My account</h1>
-  <nav class="flex gap-4 text-primary underline">
-    <a routerLink="/change-password">Change password</a><a routerLink="/orders">My orders</a>
-  </nav>
-  <form [formGroup]="profile" (ngSubmit)="saveProfile()" class="grid max-w-lg gap-4">
-    <label class="grid gap-1"
-      >Name<input class="rounded-lg border p-2" type="text" formControlName="name" /></label
-    ><label class="grid gap-1"
-      >Email<input class="rounded-lg border p-2" type="email" formControlName="email" /></label
-    ><label class="grid gap-1"
-      >Phone<input class="rounded-lg border p-2" type="tel" formControlName="phone" /></label
-    ><button class="button" [disabled]="profile.invalid || busy()">Save profile</button>
-  </form>
-  <h2 class="text-xl font-bold">Saved addresses</h2>
-  @for (item of addresses(); track item._id) {
-    <article class="rounded-xl border bg-white p-4">
-      <strong>{{ item.name }}</strong>
-      <p>{{ item.details }}, {{ item.city }} · {{ item.phone }}</p>
-      <button
-        type="button"
-        class="text-danger underline"
-        [disabled]="busy()"
-        (click)="removeAddress(item._id)"
-      >
-        Remove address
-      </button>
-    </article>
-  }
-  <form [formGroup]="address" (ngSubmit)="saveAddress()" class="grid max-w-lg gap-4">
-    <label class="grid gap-1"
-      >Address name<input class="rounded-lg border p-2" type="text" formControlName="name" /></label
-    ><label class="grid gap-1"
-      >Street address<input
-        class="rounded-lg border p-2"
-        type="text"
-        formControlName="details" /></label
-    ><label class="grid gap-1"
-      >City<input class="rounded-lg border p-2" type="text" formControlName="city" /></label
-    ><label class="grid gap-1"
-      >Delivery phone<input
-        class="rounded-lg border p-2"
-        type="tel"
-        formControlName="phone" /></label
-    ><button class="button" [disabled]="address.invalid || busy()">Add address</button>
-  </form>
-  <p role="status">{{ message() }}</p>
+<section class="page-shell" aria-labelledby="account-title">
+  <h1 id="account-title" class="mb-6 text-3xl font-bold tracking-tight text-secondary sm:text-4xl">
+    {{ 'UI.MY_ACCOUNT' | translate }}
+  </h1>
+  <div class="grid items-start gap-6 lg:grid-cols-[minmax(15rem,1fr)_minmax(0,2.3fr)]">
+    <aside class="overflow-hidden rounded-2xl border border-[#dce5de] bg-white">
+      <div class="bg-secondary p-6 text-white">
+        <div
+          aria-hidden="true"
+          class="mb-4 grid size-12 place-items-center rounded-full bg-[#d7eadf] text-xl font-bold text-secondary"
+        >
+          @if (accountName()) {
+            {{ accountName().slice(0, 1).toUpperCase() }}
+          } @else {
+            <i class="fa-regular fa-user"></i>
+          }
+        </div>
+        <p dir="auto" class="wrap-anywhere text-xl font-semibold">{{ accountName() }}</p>
+        <p dir="auto" class="wrap-anywhere text-sm text-[#d3e5da]">{{ accountEmail() }}</p>
+      </div>
+      <nav class="divide-y divide-[#e2e8e1] px-5" [attr.aria-label]="'UI.MY_ACCOUNT' | translate">
+        <a routerLink="/orders" class="account-link"
+          ><i class="fa-solid fa-box" aria-hidden="true"></i
+          ><span>{{ 'UI.ORDER_HISTORY' | translate }}</span
+          ><i class="fa-solid fa-chevron-right rtl:rotate-180" aria-hidden="true"></i
+        ></a>
+        <a routerLink="/change-password" class="account-link"
+          ><i class="fa-solid fa-key" aria-hidden="true"></i
+          ><span>{{ 'ACCOUNT.CHANGE_PASSWORD' | translate }}</span
+          ><i class="fa-solid fa-chevron-right rtl:rotate-180" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </aside>
+    <div class="grid min-w-0 gap-5">
+      <section class="panel">
+        <h2>{{ 'ACCOUNT.PERSONAL_DETAILS' | translate }}</h2>
+        <form [formGroup]="profile" ngNativeValidate (ngSubmit)="saveProfile()">
+          <fieldset [disabled]="busy()" class="mt-5 grid gap-4 sm:grid-cols-2">
+            <legend class="sr-only">{{ 'ACCOUNT.PERSONAL_DETAILS' | translate }}</legend>
+            <label class="field sm:col-span-2"
+              ><span>{{ 'ACCOUNT.FULL_NAME' | translate }}</span
+              ><input type="text" formControlName="name" autocomplete="name" required /></label
+            ><label class="field"
+              ><span>{{ 'UI.EMAIL_ADDRESS' | translate }}</span
+              ><input type="email" formControlName="email" autocomplete="email" required /></label
+            ><label class="field"
+              ><span>{{ 'UI.PHONE_NUMBER' | translate }}</span
+              ><input type="tel" formControlName="phone" autocomplete="tel" required
+            /></label>
+          </fieldset>
+          <button type="submit" class="button mt-5" [disabled]="busy()">
+            {{ 'ACCOUNT.SAVE_PROFILE' | translate }}
+          </button>
+          @if (profileMessage()) {
+            <p role="alert" class="mt-3 text-sm text-danger">{{ profileMessage() | translate }}</p>
+          }
+        </form>
+      </section>
+      <section class="panel">
+        <h2>{{ 'ACCOUNT.ADDRESSES' | translate }}</h2>
+        @switch (addressState()) {
+          @case ('loading') {
+            <p role="status" class="mt-4 text-sm">{{ 'ACCOUNT.LOADING' | translate }}</p>
+          }
+          @case ('error') {
+            <p role="alert" class="mt-4 text-sm">{{ 'ACCOUNT.LOAD_ERROR' | translate }}</p>
+            <button class="text-link" (click)="loadAddresses()">
+              {{ 'UI.TRY_AGAIN' | translate }}
+            </button>
+          }
+          @case ('ready') {
+            <ul class="mt-4 grid gap-3">
+              @for (item of addresses(); track item._id) {
+                <li
+                  class="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-[#dce5de] p-4"
+                >
+                  <div class="flex min-w-0 items-start gap-3">
+                    <i class="fa-solid fa-location-dot mt-1 text-primary" aria-hidden="true"></i>
+                    <div class="min-w-0 wrap-anywhere">
+                      <strong>{{ item.name }}</strong>
+                      <p class="text-sm">{{ item.details }}, {{ item.city }}</p>
+                      <bdi class="text-sm text-[#53685a]">{{ item.phone }}</bdi>
+                    </div>
+                  </div>
+                  @if (removingId() === item._id) {
+                    <div class="basis-full border-t border-[#dce5de] pt-2">
+                      <p class="text-sm">
+                        {{ 'ACCOUNT.CONFIRM_REMOVE' | translate: { name: item.name } }}
+                      </p>
+                      <button
+                        type="button"
+                        class="me-4 min-h-11 text-sm font-semibold text-danger"
+                        [disabled]="busy()"
+                        (click)="removeAddress(item._id)"
+                      >
+                        {{ 'ACCOUNT.REMOVE' | translate }}</button
+                      ><button
+                        type="button"
+                        class="min-h-11 text-sm font-semibold"
+                        [disabled]="busy()"
+                        (click)="removingId.set('')"
+                      >
+                        {{ 'ACCOUNT.CANCEL' | translate }}
+                      </button>
+                    </div>
+                  } @else {
+                    <button
+                      type="button"
+                      class="min-h-11 px-2 text-sm text-danger hover:underline"
+                      [disabled]="busy()"
+                      (click)="removingId.set(item._id)"
+                      [attr.aria-label]="'ACCOUNT.REMOVE_NAMED' | translate: { name: item.name }"
+                    >
+                      {{ 'ACCOUNT.REMOVE' | translate }}
+                    </button>
+                  }
+                </li>
+              } @empty {
+                <li
+                  class="rounded-xl border border-dashed border-[#bccfc2] bg-[#f6f9f6] p-4 text-sm text-[#53685a]"
+                >
+                  {{ 'ACCOUNT.EMPTY' | translate }}
+                </li>
+              }
+            </ul>
+            <details #editor class="group mt-4">
+              <summary
+                class="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-lg px-1 text-sm font-semibold text-primary hover:underline [&::-webkit-details-marker]:hidden"
+              >
+                <i class="fa-solid fa-plus group-open:rotate-45" aria-hidden="true"></i
+                >{{ 'ACCOUNT.ADD_ADDRESS' | translate }}
+              </summary>
+              <form
+                [formGroup]="address"
+                ngNativeValidate
+                (ngSubmit)="saveAddress(editor)"
+                class="mt-3 border-t border-[#e2e8e1] pt-4"
+              >
+                <fieldset [disabled]="busy()" class="grid gap-4 sm:grid-cols-2">
+                  <legend class="sr-only">{{ 'ACCOUNT.ADD_ADDRESS' | translate }}</legend>
+                  <label class="field sm:col-span-2"
+                    ><span>{{ 'ACCOUNT.ADDRESS_NAME' | translate }}</span
+                    ><input type="text" formControlName="name" autocomplete="off" required /></label
+                  ><label class="field sm:col-span-2"
+                    ><span>{{ 'UI.STREET_ADDRESS' | translate }}</span
+                    ><input
+                      type="text"
+                      formControlName="details"
+                      autocomplete="section-delivery street-address"
+                      required /></label
+                  ><label class="field"
+                    ><span>{{ 'UI.CITY' | translate }}</span
+                    ><input
+                      type="text"
+                      formControlName="city"
+                      autocomplete="section-delivery address-level2"
+                      required /></label
+                  ><label class="field"
+                    ><span>{{ 'UI.PHONE_NUMBER' | translate }}</span
+                    ><input
+                      type="tel"
+                      formControlName="phone"
+                      autocomplete="section-delivery tel"
+                      required
+                  /></label>
+                </fieldset>
+                <button type="submit" class="button mt-5" [disabled]="busy()">
+                  {{ 'ACCOUNT.SAVE_ADDRESS' | translate }}
+                </button>
+              </form>
+            </details>
+          }
+        }
+        @if (addressMessage()) {
+          <p role="status" class="mt-3 text-sm">{{ addressMessage() | translate }}</p>
+        }
+      </section>
+    </div>
+  </div>
 </section>

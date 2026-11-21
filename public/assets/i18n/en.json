@@ -1,4 +1,37 @@
 {
+  "PASSWORD": {
+    "CURRENT": "Current password",
+    "NEW": "New password",
+    "CONFIRM": "Confirm new password",
+    "LENGTH_HINT": "Use at least 8 characters with uppercase and lowercase letters, a number, and one of these symbols: # ? ! @ $ % ^ & * -",
+    "MISMATCH": "The new passwords don’t match.",
+    "SHOW": "Show passwords",
+    "SAVING": "Changing password…",
+    "CHANGED": "Your password has been changed.",
+    "FAILED": "Could not change your password. Please try again."
+  },
+  "ACCOUNT": {
+    "PERSONAL_DETAILS": "Personal details",
+    "CHANGE_PASSWORD": "Change password",
+    "FULL_NAME": "Full name",
+    "SAVE_PROFILE": "Save profile",
+    "ADDRESSES": "Saved addresses",
+    "LOADING": "Loading addresses…",
+    "LOAD_ERROR": "Could not load your addresses.",
+    "EMPTY": "You have no saved delivery addresses.",
+    "REMOVE": "Remove",
+    "CANCEL": "Cancel",
+    "REMOVE_NAMED": "Remove {{name}}",
+    "CONFIRM_REMOVE": "Remove “{{name}}” from your saved addresses?",
+    "ADD_ADDRESS": "Add an address",
+    "ADDRESS_NAME": "Address name (e.g. Home)",
+    "SAVE_ADDRESS": "Save address",
+    "ADDRESS_SAVED": "Address saved.",
+    "ADDRESS_REMOVED": "Address removed.",
+    "SAVE_ERROR": "Could not save your address.",
+    "REMOVE_ERROR": "Could not remove your address.",
+    "PROFILE_ERROR": "Could not update your profile."
+  },
   "UI": {
     "BACK_TO_CART": "Back to cart",
     "LOADING_CART": "Loading your cart…",
